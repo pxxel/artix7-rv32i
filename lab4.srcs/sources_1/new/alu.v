@@ -19,8 +19,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-`timescale 1ns / 1ps
-
 module alu(
     input wire [31:0] op1,
     input wire [31:0] op2,
@@ -48,9 +46,17 @@ module alu(
         case (alu_ctrl)
             ALU_ADD: result = op1 + op2;
             ALU_SUB: result = op1 - op2;
-            ALU_SLL: result = op1 << b[4:0];
+            ALU_SLL: result = op1 << op2[4:0];
             ALU_SLT: result = ($signed(op1) < $signed(op2)) ? 32'd1 : 32'd0;
             ALU_SLTU: result = (op1 < op2) ? 32'd1 : 32'd0;
             ALU_XOR: result = op1 ^ op2;
-            
+            ALU_SRL: result = op1 >> op1[4:0];
+            ALU_SRA: result = $signed(op1) >>> op2[4:0];
+            ALU_OR: result = op1 | op2;
+            ALU_AND: result = op1 & op2;
+            ALU_OP2: result = op2;
+            default: result = 32'd0;
+        endcase
+    end
+                
 endmodule

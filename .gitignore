@@ -1,0 +1,6 @@
+lab4.cache/
+lab4.hw/
+lab4.ip_user_files/
+lab4.sim/
+*.log
+*_tb.v
